@@ -53,7 +53,7 @@ class AppResourceTest {
                 .extract().as(Response.class);
 
         //FIXME : uncomment  this, and magically verify works! InnerThreadLocal not work, why? Different Threadpool, CompletableFutures?
-        //WireMock.configureFor(wireMockClient);
+        WireMock.configureFor(wireMockClient);
 
         verify(1,
                 WireMock.getRequestedFor(WireMock.urlPathEqualTo("/api/2010/drivers")));

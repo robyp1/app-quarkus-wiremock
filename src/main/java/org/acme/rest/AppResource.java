@@ -12,6 +12,9 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 
+import java.time.Duration;
+import java.time.temporal.TemporalAmount;
+
 @Path("/v1")
 public class AppResource {
 
@@ -28,4 +31,16 @@ public class AppResource {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(drivers, Response.class);
     }
+
+    @GET
+    @Path("/drivers/async")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDriversAsync() throws JsonProcessingException {
+        String response = f1ApiClient.getDriversAsync("2010").await()
+                .atMost(Duration.ofSeconds(1000));
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(response, Response.class);
+    }
+
+
 }
