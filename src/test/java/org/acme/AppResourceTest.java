@@ -52,14 +52,11 @@ class AppResourceTest {
                 .contentType(ContentType.JSON)
                 .extract().as(Response.class);
 
-        //FIXME : uncomment  this, and magically verify works! InnerThreadLocal not work, why? Different Threadpool, CompletableFutures?
-        //WireMock.configureFor(wireMockClient);
+
 
         wireMockClient.verifyThat(1,WireMock.getRequestedFor(WireMock.urlPathEqualTo("/api/2010/drivers")) );
 
-//        verify(1,
-//                WireMock.getRequestedFor(WireMock.urlPathEqualTo("/api/2010/drivers")));
-//        logger.info("resp:{}", response );
+        logger.info("resp:{}", response );
     }
 
     String jsonResponse = """
